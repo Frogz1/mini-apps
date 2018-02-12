@@ -11,10 +11,11 @@ document
       roundsLeft: 9,
       currentPiece: function() {
          if (this.roundsLeft % 2 !== 0) {
-          this.roundsLeft === 0 ? null: this.roundsLeft--;
+          this.roundsLeft === 1 ? null: this.roundsLeft--;
+          
           return 'X'
         } else {
-          this.roundsLeft === 0 ? null: this.roundsLeft--;
+          this.roundsLeft === 1 ? null: this.roundsLeft--;
           return 'O'
         }
         
@@ -24,31 +25,17 @@ document
 
      
     };
-    //top left position
-      //*[@id="board"]/tbody/tr[1]/td[1]
-    //top middle
-      //*[@id="board"]/tbody/tr[1]/td[2]
-    //top right
-      //*[@id="board"]/tbody/tr[1]/td[3]
-    //middle row left position
-      //*[@id="board"]/tbody/tr[2]/td[1]
-    //middle row middle
-      //*[@id="board"]/tbody/tr[2]/td[2]
-    //middle row right
-      //*[@id="board"]/tbody/tr[2]/td[3]
-    //bottom row left position
-      //*[@id="board"]/tbody/tr[3]/td[1]
-    //bottom row middle
-      //*[@id="board"]/tbody/tr[3]/td[2]
-    //bottom row right
-      //*[@id="board"]/tbody/tr[3]/td[3]
+    
 
     var setPieces = function(e) {
-      e.target.innerText = currentGameDetails.currentPiece();
-      var placeArrayPiece = e.target.id.split('-').map(val =>  parseInt(val));
-      score[placeArrayPiece[0]][placeArrayPiece[1]] = e.target.innerText;
-      console.table(score);
-      
+      if (e.target.className !== 'locked-in') {
+        e.target.innerText = currentGameDetails.currentPiece();
+        e.target.className = 'locked-in';
+        var placeArrayPiece = e.target.id.split('-').map(val =>  parseInt(val));      
+        score[placeArrayPiece[0]][placeArrayPiece[1]] = e.target.innerText;
+      }
+
+      console.table(score);      
       console.log(currentGameDetails.roundsLeft)
       
     }
