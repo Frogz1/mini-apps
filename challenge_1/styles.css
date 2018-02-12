@@ -1,13 +1,24 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
+    font-size: 25px;
 }
- td {
+
+td {
     border: 1px solid black;
     height: 100px;
     width: 100px;
 }
 
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .locked-in {
     border: 1px solid red;
+}
+
+.win {
+    border: 1px solid green;
 }
