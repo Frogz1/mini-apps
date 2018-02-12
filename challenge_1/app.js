@@ -45,6 +45,10 @@ document
 
     var setPieces = function(e) {
       e.target.innerText = currentGameDetails.currentPiece();
+      var placeArrayPiece = e.target.id.split('-').map(val =>  parseInt(val));
+      score[placeArrayPiece[0]][placeArrayPiece[1]] = e.target.innerText;
+      console.table(score);
+      
       console.log(currentGameDetails.roundsLeft)
       
     }
