@@ -2,9 +2,10 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
 }
-table, th, td {
+ td {
     border: 1px solid black;
-    height: 50px;
+    height: 100px;
+    width: 100px;
 }
 
 .locked-in {

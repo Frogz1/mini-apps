@@ -1,7 +1,16 @@
 document
   .addEventListener('DOMContentLoaded', function () {
     // your code goes here
+    var spots = document.getElementsByTagName('td');
     var board = document.getElementById('board');
+    console.log(spots);
+    var resetPosition = function() {
+      spots.forEach((spot) => {
+        spot.innerText = '  ';
+        spot.removeAttribute("class")
+      });
+    }
+    
     var score = [
       [null, null, null],
       [null, null, null],
@@ -39,7 +48,25 @@ document
       console.log(currentGameDetails.roundsLeft)
       
     }
-    board.addEventListener('click', setPieces);
+
+
+    spots = Array.prototype.slice.call(spots);
+    
+    spots.forEach((spot) => {
+      spot.addEventListener('click', setPieces,false);
+    })
+    console.log(spots);
+    // board.addEventListener('click', setPieces);
+    window.globalScore = score;
+    var resetBoard = function(e) {
+      for (var i = 0; i < score.length; i++) {
+        score[i] = score[i].map(plays => plays = null);
+      }
+
+      resetPosition()
+      console.log(score);
+    }
+    document.getElementById('reset-game').addEventListener('click', resetBoard);
 
 
   }, false);
