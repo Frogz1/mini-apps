@@ -11,15 +11,16 @@ app.use(express.static(path.join(__dirname, '/client')));
 var jsonParser = bodyParser.json();
 
 app.post('/generate', jsonParser, (req, res) => {
-  // console.log(req.body);
-  // console.log(helper.HandleChildren(req.body))
-  // var values = helper.HandleChildren(req.body);
-  // console.log(values);
-
-
+   
+  const items = helper.HandleChildren(req.body);
+  const replacer = (key, value) => value === null ? '' : value;
+  const header = Object.keys(items[0]);
+  let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+  csv.unshift(header.join(','))
+  csv = csv.join('\r\n');
+  console.log(csv);
   
-  
-  res.send(helper.HandleChildren(req.body));
+  res.send(csv);
 })
 
 app.listen(3001, () => {
