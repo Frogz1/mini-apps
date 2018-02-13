@@ -41,7 +41,7 @@ document
         }
 
       },
-      updatePiece: 'ok'
+      updatePiece: 'ok' 
 
 
     };
@@ -82,7 +82,7 @@ document
       hasAnyColConflicts();
       hasMajorDiagConflict();
       hasMinorDiagConflict();
-      currentGameDetails.roundsLeft === 1 ? winner.innerText = "Tie game, wow you humans are smart" : "";
+      currentGameDetails.roundsLeft === 1 ? winner.innerText = "Tie game, wow you humans sure are smart..." : "";
     }
 
     var hasRowConflictAt = function (index) {
