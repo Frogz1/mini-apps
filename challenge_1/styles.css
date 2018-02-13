@@ -19,6 +19,6 @@ table {
     border: 1px solid red;
 }
 
-.win {
-    border: 1px solid green;
+.win > td {
+    border: 15px solid green;
 }

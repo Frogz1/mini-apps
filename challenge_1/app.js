@@ -3,6 +3,7 @@ document
     // your code goes here
     var spots = document.getElementsByTagName('td');
     var board = document.getElementById('board');
+    board.addEventListener('click', (e) => checkIfSolved(e))
 
     var resetPosition = function () {
       spots.forEach((spot) => {
@@ -11,9 +12,9 @@ document
       });
     }
 
-    var score = [[null, null, null],
-                [null, null, null],
-                [null, null, null]];
+    var score = [[-1, -1, -1],
+                [-1, -1, -1],
+                [-1, -1, -1]];
     var currentGameDetails = {
       roundsLeft: 9,
       currentPiece: function () {
@@ -62,7 +63,7 @@ document
     window.globalScore = score;
     var resetBoard = function (e) {
       for (var i = 0; i < score.length; i++) {
-        score[i] = score[i].map(plays => plays = null);
+        score[i] = score[i].map(plays => plays = -1);
       }
       currentGameDetails.roundsLeft = 9;
 
@@ -73,29 +74,35 @@ document
       .getElementById('reset-game')
       .addEventListener('click', resetBoard);
 
-    var checkIfSolved = function (pieces) {
+    var checkIfSolved = function () {
       //Win solutions:
       //1. 3 in a vertical / horizontal line
       // 2. diagonal left, diagonal right if there is a win, halt play and add win
       // class Win types : All values in array match All values at rows 0, 1, 2 have a
       // match vertically e.g [x,0,x][0][1] [x,0,0][1, 1] [x,0,null][2, 1];
-      for (var i = 0; i < 3; i++) {
-        console.log(hasRowConflictAt(i))
-      }
+      console.log(hasAnyRowConflicts());
       
      
     }
     var hasRowConflictAt = function (index) {
       //
-      var count = 0;
+
       console.log(score[index]);
       return score[index].reduce((a, b) => a + b);
-
-    
-
-      
-
-
+    }
+    var hasAnyRowConflicts = function(e) {
+      for (var i = 0; i < 3; i++) {
+        var conflicts = hasRowConflictAt(i);
+        if (conflicts === 0) {
+          document.getElementById(i.toString()).className = "win";
+          
+          return i;
+        } else if (conflicts === 3) {
+          document.getElementById(i.toString()).className = "win";
+          return i;
+          
+        }
+      }
     }
 
     var colHelper = function (currentBoard) {
@@ -126,8 +133,8 @@ document
 
     var testMe = function (score) {
       testBtn
-        .addEventListener('click', function (score) {
-          checkIfSolved(score);
+        .addEventListener('click', function () {
+          checkIfSolved();
         })
     }
     testMe(score);
