@@ -21,7 +21,8 @@ $(document).ready(function() {
         // dataType: "application/json",
         success: function (response) {
           console.log(response);
-          $("#result").append("<p>" + response + "</p>");      
+          $("#result").append("<p>" + response + "</p>");
+          $("#json-input").val('');      
         }
       });
     })
