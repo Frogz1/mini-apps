@@ -13,12 +13,20 @@ var jsonParser = bodyParser.json();
 app.post('/generate', jsonParser, (req, res) => {
    
   const items = helper.HandleChildren(req.body);
-  const replacer = (key, value) => value === null ? '' : value;
+  // const replacer = (key, value) => value === null ? '' : value;
+  const replacer = function(key, value) {
+    if (value === null) {
+      return '';
+    } else {
+      console.log(value);
+    }
+  }
   const header = Object.keys(items[0]);
-  let csv = items.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+  console.log(header)
+  let csv = items.map(row => header.map(fieldName => row[fieldName]))
   csv.unshift(header.join(','))
   csv = csv.join('\r\n');
-  console.log(csv);
+  // console.log(csv);
   
   res.send(csv);
 })
