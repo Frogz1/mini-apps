@@ -3,6 +3,10 @@ document
     // your code goes here
     var spots = document.getElementsByTagName('td');
     var board = document.getElementById('board');
+    var winners = document.getElementsByTagName('tr');
+    
+    
+    winners = Array.prototype.slice(winners);
     board.addEventListener('click', (e) => checkIfSolved(e))
 
     var resetPosition = function () {
@@ -10,11 +14,12 @@ document
         spot.innerText = '  ';
         spot.removeAttribute("class")
       });
+      
     }
 
-    var score = [[-1, -1, -1],
-                [-1, -1, -1],
-                [-1, -1, -1]];
+    var score = [['waiting', 'waiting', 'waiting'],
+                ['waiting', 'waiting', 'waiting'],
+                ['waiting', 'waiting', 'waiting']];
     var currentGameDetails = {
       roundsLeft: 9,
       currentPiece: function () {
@@ -63,7 +68,7 @@ document
     window.globalScore = score;
     var resetBoard = function (e) {
       for (var i = 0; i < score.length; i++) {
-        score[i] = score[i].map(plays => plays = -1);
+        score[i] = score[i].map(plays => plays = 'waiting');
       }
       currentGameDetails.roundsLeft = 9;
 
@@ -75,11 +80,7 @@ document
       .addEventListener('click', resetBoard);
 
     var checkIfSolved = function () {
-      //Win solutions:
-      //1. 3 in a vertical / horizontal line
-      // 2. diagonal left, diagonal right if there is a win, halt play and add win
-      // class Win types : All values in array match All values at rows 0, 1, 2 have a
-      // match vertically e.g [x,0,x][0][1] [x,0,0][1, 1] [x,0,null][2, 1];
+      
       console.log(hasAnyRowConflicts());
       
      
@@ -88,6 +89,7 @@ document
       //
 
       console.log(score[index]);
+
       return score[index].reduce((a, b) => a + b);
     }
     var hasAnyRowConflicts = function(e) {
