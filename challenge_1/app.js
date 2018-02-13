@@ -22,7 +22,7 @@ document
                 ['waiting', 'waiting', 'waiting'],
                 ['waiting', 'waiting', 'waiting']];
     var currentGameDetails = {
-      roundsLeft: 9,
+      roundsLeft: 10,
       currentPiece: function () {
         if (this.roundsLeft % 2 !== 0) {
           this.roundsLeft === 1
@@ -39,6 +39,7 @@ document
 
       },
       updatePiece: 'ok'
+      
 
     };
 
@@ -86,6 +87,7 @@ document
       hasAnyColConflicts()
       hasMajorDiagConflict();
       hasMinorDiagConflict();
+      currentGameDetails.roundsLeft === 1 ? winner.innerText = "Tie game, wow you humans are smart" : "";
 
      
     }
