@@ -72,7 +72,7 @@ document
         score[i] = score[i].map(plays => plays = 'waiting');
       }
       currentGameDetails.roundsLeft = 9;
-
+      winner.innerText = '';
       resetPosition()
       console.log(score);
     }
@@ -85,7 +85,7 @@ document
       hasAnyRowConflicts()
       hasAnyColConflicts()
       hasMajorDiagConflict();
-      hasMinorDiagConflict()
+      hasMinorDiagConflict();
 
      
     }
@@ -98,12 +98,16 @@ document
       for (var i = 0; i < 3; i++) {
         var conflicts = hasRowConflictAt(i);
         if (conflicts === 0) {
+          winner.innerHTML = 'player 2 wins , good job big O!'
           updateRowWinners(i);
           return i;
         } else if (conflicts === 3) {
+        winner.innerHTML = 'player 1 wins, good job X-player!'
+          
           updateRowWinners(i)
           return i;          
         }
+        
       }
     }
     var hasAnyColConflicts = function () {
@@ -111,9 +115,11 @@ document
         var conflicts =  hasColConflictAt(i);
       
       if (conflicts === 0) {
+        winner.innerHTML = 'player 2 wins , good job big O!'        
         updateColWinners(i);       
         return i;
       } else if (conflicts === 3) {
+        winner.innerHTML = 'player 1 wins, good job X-player!'        
         updateColWinners(i)
         return i;          
       }
@@ -136,7 +142,8 @@ document
           diagVals.push(score[row][row])         
       }
       var conflicts = diagVals.reduce((a, b) => a + b);
-      if (conflicts === 0 || conflicts ===3) {
+      if (conflicts === 0 || conflicts === 3) {
+        conflicts === 0 ? winner.innerHTML = 'player 2 wins , good job big O!' : winner.innerHTML = 'player 1 wins, good job X-player!'
         for (var i = 0; i < 3; i++) {
           document.getElementById(`${i}-${i}`).className = "col-win"
         }
@@ -147,6 +154,8 @@ document
       var diagVals = [];
       var minorDag = score[0][2] + score[1][1] + score[2][0];
       if (minorDag === 0 || minorDag === 3) {
+        minorDag === 0 ? winner.innerHTML = 'player 2 wins , good job big O!' : winner.innerHTML = 'player 1 wins, good job X-player!'
+        
           document.getElementById(`0-2`).className = "col-win"
           document.getElementById(`1-1`).className = "col-win"
           document.getElementById(`2-0`).className = "col-win"
@@ -173,5 +182,6 @@ document
         })
     }
     testMe(score);
+    var winner = document.getElementById('winner-message');
 
   }, false);
