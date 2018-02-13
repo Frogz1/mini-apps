@@ -3,7 +3,8 @@ document
     // your code goes here
     var spots = document.getElementsByTagName('td');
     var board = document.getElementById('board');
-    var winners = document.getElementsByTagName('tr');
+    var winners = document.getElementsByTagName('tr > td').classNames = ''
+
     
     
     winners = Array.prototype.slice(winners);
@@ -81,54 +82,60 @@ document
 
     var checkIfSolved = function () {
       
-      console.log(hasAnyRowConflicts());
-      
+      hasAnyRowConflicts()
+      console.log(hasAnyColConflicts())
      
     }
     var hasRowConflictAt = function (index) {
-      //
-
       console.log(score[index]);
-
       return score[index].reduce((a, b) => a + b);
     }
+
     var hasAnyRowConflicts = function(e) {
       for (var i = 0; i < 3; i++) {
         var conflicts = hasRowConflictAt(i);
         if (conflicts === 0) {
-          document.getElementById(i.toString()).className = "win";
-          
+          updateRowWinners(i);
           return i;
         } else if (conflicts === 3) {
-          document.getElementById(i.toString()).className = "win";
-          return i;
-          
+          updateRowWinners(i)
+          return i;          
         }
       }
     }
-
-    var colHelper = function (currentBoard) {
-      var col = 0;
-      var result = false;
-
-      for (var i = 0; i < currentBoard.length; i++) {
-        var currentCol = [];
-        for (var j = 0; j < currentBoard[i].length; j++) {
-
-          currentCol.push(currentBoard[j][i])
-          // loop through places places of currentboard but go col, by col so [0][0]
-          // [1][0] [2][0]
-        }
-        if (currentCol.reduce((a, b) => a === b)) {
-          console.table(currentCol)
-          console.log(currentCol.reduce((a, b) => a === b))
-          result = true;
-          break;
-        }
+    var hasAnyColConflicts = function () {
+      for (var i = 0; i < 3; i++) {
+        var conflicts =  hasColConflictAt(i);
+      
+      if (conflicts === 0) {
+        updateColWinners(i);       
+        return i;
+      } else if (conflicts === 3) {
+        updateColWinners(i)
+        return i;          
       }
+    }
+    }
 
-      console.log(result);
-      return result;
+    var hasColConflictAt = function (colIndex) {
+      var colValues = [];
+      for (var row = 0; row < 3; row++) {
+        colValues.push(score[row][colIndex]);
+      }
+      console.table(colValues)
+
+      return colValues.reduce((a, b) => a + b);
+    }
+
+    var updateColWinners = function(col) {
+      for (var i = 0; i < 3; i++) {
+        document.getElementById(`${i}-${col}`).className = "col-win"
+      }
+    }
+    var updateRowWinners = function(row) {
+      for (var i = 0; i < 3; i++) {
+        document.getElementById(`${row}-${i}`).className = "col-win"
+      }
     }
 
     var testBtn = document.getElementById('debug-helper');

@@ -19,6 +19,10 @@ table {
     border: 1px solid red;
 }
 
-.win > td {
-    border: 15px solid green;
+.row-win > td {
+    border: 5px solid green;
+}
+
+.col-win {
+    border: 5px solid green;    
 }
