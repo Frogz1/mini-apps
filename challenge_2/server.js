@@ -3,10 +3,10 @@ var path = require('path');
 var bodyParser = require('body-parser')
 var app = express();
 var fs = require('fs');
+var jsonParser = bodyParser.json();
 
 
 app.use(express.static(path.join(__dirname,'/client')));
-var jsonParser = bodyParser.json();
 
 app.post('/generate', jsonParser, (req, res) => {
 
@@ -17,7 +17,6 @@ app.post('/generate', jsonParser, (req, res) => {
         console.log(`${data} saved`);
     }
   })
-
     
     res.send('OK');
 })
@@ -25,6 +24,7 @@ app.post('/generate', jsonParser, (req, res) => {
 app.listen(3001, () => {
     console.log(`Listening on port 3001`)
 })
+
 
 
 
