@@ -83,11 +83,14 @@ document
     var checkIfSolved = function () {
       
       hasAnyRowConflicts()
-      console.log(hasAnyColConflicts())
+      hasAnyColConflicts()
+      hasMajorDiagConflict();
+      hasMinorDiagConflict()
+
      
     }
     var hasRowConflictAt = function (index) {
-      console.log(score[index]);
+
       return score[index].reduce((a, b) => a + b);
     }
 
@@ -122,9 +125,31 @@ document
       for (var row = 0; row < 3; row++) {
         colValues.push(score[row][colIndex]);
       }
-      console.table(colValues)
+
 
       return colValues.reduce((a, b) => a + b);
+    }
+
+    var hasMajorDiagConflict = function () {
+      var diagVals = []
+      for (var row = 0; row < 3; row++) {     
+          diagVals.push(score[row][row])         
+      }
+      var conflicts = diagVals.reduce((a, b) => a + b);
+      if (conflicts === 0 || conflicts ===3) {
+        for (var i = 0; i < 3; i++) {
+          document.getElementById(`${i}-${i}`).className = "col-win"
+        }
+      }     
+    }
+    
+    var hasMinorDiagConflict = function () {
+      var diagVals = [];
+      for (var row = 3; row > 0; row--) {
+        diagVals.push(score[row - (row - 1)][row]);
+      }
+      console.log(diagVals);
+      return diagVals.reduce((a, b) => a + b);  
     }
 
     var updateColWinners = function(col) {
