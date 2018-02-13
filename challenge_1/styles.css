@@ -26,3 +26,8 @@ table {
 .col-win {
     border: 5px solid green;    
 }
+
+
+.hidden {
+    display: none;
+}

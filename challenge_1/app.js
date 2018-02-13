@@ -145,11 +145,12 @@ document
     
     var hasMinorDiagConflict = function () {
       var diagVals = [];
-      for (var row = 3; row > 0; row--) {
-        diagVals.push(score[row - (row - 1)][row]);
+      var minorDag = score[0][2] + score[1][1] + score[2][0];
+      if (minorDag === 0 || minorDag === 3) {
+          document.getElementById(`0-2`).className = "col-win"
+          document.getElementById(`1-1`).className = "col-win"
+          document.getElementById(`2-0`).className = "col-win"
       }
-      console.log(diagVals);
-      return diagVals.reduce((a, b) => a + b);  
     }
 
     var updateColWinners = function(col) {
